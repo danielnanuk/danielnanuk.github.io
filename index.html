@@ -331,79 +331,17 @@
       
         
           
-            <h3 id="零、ML-Machine-Learning-到底是嘛？"><a href="#零、ML-Machine-Learning-到底是嘛？" class="headerlink" title="零、ML(Machine Learning)到底是嘛？"></a>零、ML(Machine Learning)到底是嘛？</h3><p>Tom Mitchell于1998年说道：</p>
-<blockquote>
-<p>A computer program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T as measured by P, improves with experiance E.</p>
-</blockquote>
-<p>计算机程序根据现有的经验能够完成某种任务，达到一定的性能指标，并且随着经验的增多，能够不断的提升性能。</p>
-<p>机器学习根据训练的样本是否有label又分为监督学习、非监督学习。</p>
-<h4 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h4><p>对给定的训练样本，已知其正确的label，通过对数据的学习，能够尽可能的预测样本以外的数据，监督学习一般又根据需要预测的值是连续还是离散的，分为回归问题和分类问题</p>
-<h4 id="非监督学习"><a href="#非监督学习" class="headerlink" title="非监督学习"></a>非监督学习</h4><p>给定的训练样本，没有任何label信息，而非监督学习就是要在这些数据中寻找某些模式，将其分成不同的类别，Google News就使用无监督学习对新闻进行分类</p>
-<h3 id="一、TensorFlow是什么？"><a href="#一、TensorFlow是什么？" class="headerlink" title="一、TensorFlow是什么？"></a>一、TensorFlow是什么？</h3><p>TensorFlow是一个采用数据流图，用于数值计算的开源软件库，主要用于机器学习和深度学习，由Google Brain开发，于2015年9月开源。</p>
-<h4 id="计算图（computational-graph"><a href="#计算图（computational-graph" class="headerlink" title="计算图（computational graph)"></a>计算图（computational graph)</h4><p>TensorFlow是基于计算图的框架，在具体介绍TensorFlow之前，我们先看看什么是计算图。假设我们有一个需要计算的表达式：y = a * b + c，该表达式包含一个乘法和一个加法，该表达式可以表示为：</p>
-<p>上图完整描述了计算任务的依赖关系，这种有向无环图就叫做计算图。</p>
-<p>在TensorFlow中主要有以下几个概念：</p>
-<h4 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h4><p>Tensor（”张量“）是TensorFlow中最重要的数据单元，一个tensor由多维数组构成。<br>tensor的rank表示其数组的维度，tensor的shape代表每个纬度数据的个数，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3 # 0维张量，即标量, rank = 0, shape = 1</div><div class="line">[1. ,2., 3.] # 1维张量，即向量, rank = 1, shape = 3</div><div class="line">[[1., 2., 3.,4.], [5., 6., 7.,8.]] # 2维张量， 一个2 x 3 的矩阵, rank = 2, shape =3</div></pre></td></tr></table></figure></p>
-<h4 id="Operation"><a href="#Operation" class="headerlink" title="Operation"></a>Operation</h4><p>执行计算的单元，可以是加减乘除等数学运算，也可以是各种各样的优化算法，Operation接收0个或多个Tensor，输出一个Tensor</p>
-<h4 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h4><p>在计算图中用于代表Tensor或者Operation</p>
-<h4 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h4><p>Graph用于定义整个计算任务，没有进行任何计算，在TensorFlow中，可以通过查看session.graph_def来得到graph的定义：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">node &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">"a/initial_value"</span></div><div class="line">  op: <span class="string">"Const"</span></div><div class="line">  attr &#123;</div><div class="line">    <span class="attr">key</span>: <span class="string">"dtype"</span></div><div class="line">    value &#123;</div><div class="line">      <span class="attr">type</span>: DT_INT32</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  attr &#123;</div><div class="line">    <span class="attr">key</span>: <span class="string">"value"</span></div><div class="line">    value &#123;</div><div class="line">      tensor &#123;</div><div class="line">        <span class="attr">dtype</span>: DT_INT32</div><div class="line">        tensor_shape &#123;</div><div class="line">        &#125;</div><div class="line">        int_val: <span class="number">1</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">...</div></pre></td></tr></table></figure></p>
-<h4 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h4><p>Graph仅仅定义了所有的Node，没有进行任何计算，而session根据graph的定义分配资源，执行计算任务。</p>
-<h3 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h3><p>TensorFlow的安装非常简单，有兴趣的同学可以参考<a href="https://www.tensorflow.org/install/" target="_blank" rel="external">官网</a>，笔者这里使用pip在mac上面进行安装，遇到一个小坑，安装TensorFlow时出现了[Errno 1] Operation not permitted，遇到相同问题的可以移步<a href="https://stackoverflow.com/questions/32659348/operation-not-permitted-when-on-root-el-capitan-rootless-disabled/32661637#32661637" target="_blank" rel="external">这里</a>(官网也有关于这个问题的link，但是并不能解决问题)</p>
-<h3 id="三、TensorFlow的使用"><a href="#三、TensorFlow的使用" class="headerlink" title="三、TensorFlow的使用"></a>三、TensorFlow的使用</h3><p>假设现在我们有一组Data Set表示房屋的面积以及对应房屋的价格，我们想预测面积为90的房屋价格应该是多少，DataSet如下：</p>
-<table>
-<thead>
-<tr>
-<th>X</th>
-<th>Y</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>40</td>
-<td>37.0000</td>
-</tr>
-<tr>
-<td>65</td>
-<td>72.0164</td>
-</tr>
-<tr>
-<td>80</td>
-<td>93.0456</td>
-</tr>
-<tr>
-<td>115</td>
-<td>130.4864</td>
-</tr>
-<tr>
-<td>150</td>
-<td>153.4161</td>
-</tr>
-</tbody>
-</table>
-<p>其中X为房屋的面积，Y为房屋的价格，对于Tom给出的机器学习定义来说，这里的E就是已有的房屋价格数据，T就是对房屋价格进行预测，P就是房屋价格预测的准确性。<br>先在坐标系中绘制房屋价格数据如下：</p>
-<p>观察上图，几乎是一条直线，可以使用linear regression来处理这个问题，来对这些数据进行学习，获得最优的θ<sub>0</sub>和θ<sub>1</sub>，使得平方误差函数的值最小</p>
-<h6 id="拟合函数"><a href="#拟合函数" class="headerlink" title="拟合函数"></a>拟合函数</h6><p>h<sub>0</sub> = θ<sub>0</sub> + θ<sub>1</sub> * x</p>
-<h6 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h6><p>θ<sub>0</sub>, θ<sub>1</sub></p>
-<h6 id="损失函数："><a href="#损失函数：" class="headerlink" title="损失函数："></a>损失函数：</h6><p>其中m为数据集的大小，x<sup>i</sup>表示第i个数据集输入，y<sup>i</sup>表示对应的正确房价。</p>
-<p>当使用TensorFlow构建graph时，大致分为5个部分：</p>
-<ol>
-<li>为输入x(对于多特征问题有多个输入)与输出y定义placeholder</li>
-<li>定义参数</li>
-<li>定义模型结构</li>
-<li>定义损失函数</li>
-<li>定义优化算法</li>
-</ol>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="定义placeholers与Variables"><a href="#定义placeholers与Variables" class="headerlink" title="定义placeholers与Variables"></a>定义placeholers与Variables</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</div><div class="line"></div><div class="line"><span class="comment"># input</span></div><div class="line">x = tf.placeholder(tf.float32, name=<span class="string">"x"</span>)</div><div class="line"><span class="comment"># output</span></div><div class="line">y = tf.placeholder(tf.float32, name=<span class="string">"y"</span>)</div><div class="line"></div><div class="line"><span class="comment"># parameter</span></div><div class="line">theta0 = tf.Variable(<span class="number">.5</span>, name=<span class="string">"theta0"</span>)</div><div class="line">theta1 = tf.Variable(<span class="number">.5</span>, name=<span class="string">"theta1"</span>)</div></pre></td></tr></table></figure>
-<h5 id="定义模型："><a href="#定义模型：" class="headerlink" title="定义模型："></a>定义模型：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hypothesis = theta0 + theta1 * x</div></pre></td></tr></table></figure>
-<p>使用平方误差函数计算损失：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">squared_delta = tf.square(hypothesis - y)</div><div class="line">loss = tf.reduce_sum(squared_delta) / (<span class="number">2</span> * <span class="number">5</span>)</div></pre></td></tr></table></figure></p>
-<h5 id="定义优化器："><a href="#定义优化器：" class="headerlink" title="定义优化器："></a>定义优化器：</h5><p>这里使用梯度下降算法，学习率设定为0.00001，梯度下降算法会不断的更新θ<sub>0</sub>和θ<sub>1</sub>的值，使损失变小。<br><em>learning rate的选取不宜过大或者过小，过大可能导致损失函数无法收敛，过小导致循环的次数增多</em></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">optimizer = tf.train.GradientDescentOptimizer(learning_rate=<span class="number">0.00001</span>)</div><div class="line">training = optimizer.minimize(loss)</div></pre></td></tr></table></figure>
-<h5 id="进行训练："><a href="#进行训练：" class="headerlink" title="进行训练："></a>进行训练：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dataSet = &#123;x: [<span class="number">40</span>, <span class="number">65</span>, <span class="number">80</span>, <span class="number">115</span>, <span class="number">150</span>], y: [<span class="number">37.0000</span>, <span class="number">72.0164</span>, <span class="number">93.0456</span>, <span class="number">130.4864</span>, <span class="number">153.4161</span>]&#125;</div><div class="line">session = tf.Session()</div><div class="line">init = tf.global_variables_initializer()</div><div class="line">session.run(init)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</div><div class="line">    session.run(training, dataSet)</div><div class="line">    print(session.run([theta0, theta1]))</div><div class="line">    print(session.run(loss, dataSet))</div></pre></td></tr></table></figure>
-<p>训练1000次之后，得到θ<sub>0</sub>= 0.50757158, θ<sub>1</sub> = 1.0718392, 对比之前的θ<sub>0</sub>= 0.5, θ<sub>1</sub> =  0.5，如图：</p>
-<p>可以看出，在训练1000次之后，得到的拟合函数明显优于之前最初的函数，将面积90代入拟合函数，得到价格96.97309958，预测90平米房屋售价约等于97万。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文简单介绍了TensorFlow的一些基本概念，并通过实现一个简单的房价预测实例介绍了TensorFlow的基本使用，具体感兴趣的同学可以移步<a href="https://www.tensorflow.org" target="_blank" rel="external">官网</a></p>
+          零、ML(Machine Learning)到底是嘛？Tom Mitchell于1998年说道：
 
-          
+A computer program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T as measured 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/ML-tensorflow/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -493,10 +431,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
