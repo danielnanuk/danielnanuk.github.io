@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Danielnanuk">
 <meta property="og:description" content="位操作Java中的位操作有:  取反操作:~ 或操作: | 与操作: &amp;amp; 异或操作: ^ 移位操作: 左移: &amp;lt;&amp;lt; 右移: &amp;gt;&amp;gt; 无符号右移： &amp;gt;&amp;gt;&amp;gt;    Java中的位操作只支持整型(byte,short,int,long) 最大值与最小值开始看位操作之前, 我们先来看看最大值与最小值, 以Integer为例:1234567891011/**">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-08T07:14:53.053Z">
+<meta property="og:updated_time" content="2018-06-08T07:19:43.589Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中的位操作">
 <meta name="twitter:description" content="位操作Java中的位操作有:  取反操作:~ 或操作: | 与操作: &amp;amp; 异或操作: ^ 移位操作: 左移: &amp;lt;&amp;lt; 右移: &amp;gt;&amp;gt; 无符号右移： &amp;gt;&amp;gt;&amp;gt;    Java中的位操作只支持整型(byte,short,int,long) 最大值与最小值开始看位操作之前, 我们先来看看最大值与最小值, 以Integer为例:1234567891011/**">
@@ -362,7 +362,7 @@
 <p>对于正数来说, 右移时最高位始终为0, 高位补0.</p>
 <p>位于负数来说, 右移时最高位始终为1, 高位补0.</p>
 <p>在未过界情况下, 对于偶数右移a左移等于<code>a &gt;&gt; 1 = a / 2</code>, 对于奇数b右移等于<code>b &gt;&gt; 1 = (b - 1) / 2</code>.</p>
-<h3 id="无符号右移"><a href="#无符号右移" class="headerlink" title="无符号右移"></a>无符号右移</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = -<span class="number">10</span>;</span><br><span class="line">System.out.println(toBinaryString.apply(a));</span><br><span class="line"><span class="keyword">int</span> b = a &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">System.out.println(toBinaryString.apply(b));</span><br><span class="line">System.out.println(b);</span><br></pre></td></tr></table></figure>
+<h3 id="无符号右移"><a href="#无符号右移" class="headerlink" title="无符号右移"></a>无符号右移</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = -<span class="number">10</span>;</span><br><span class="line">System.out.println(toBinaryString.apply(a)); <span class="comment">// 11111111111111111111111111110110</span></span><br><span class="line"><span class="keyword">int</span> b = a &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">System.out.println(toBinaryString.apply(b)); <span class="comment">// 01111111111111111111111111111011</span></span><br><span class="line">System.out.println(b); <span class="comment">// 2147483643</span></span><br></pre></td></tr></table></figure>
 <p>不管最高位符号位向右移动, 高位补0.</p>
 
       
